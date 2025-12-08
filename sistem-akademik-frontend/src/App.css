@@ -1,0 +1,67 @@
+/* Import Font Modern: Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --bg-color: #f8f9fa;
+    --text-dark: #2b2d42;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+}
+
+/* Custom Card Styling */
+.card-modern {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    background: white;
+}
+
+.card-modern:hover {
+    transform: translateY(-5px);
+}
+
+/* Custom Table Styling */
+.table-modern thead th {
+    background-color: #f1f3f5;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border: none;
+    padding: 15px;
+}
+
+.table-modern tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.table-modern tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Login Page Styling */
+.login-bg {
+    background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--primary-color);
+    transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+}
