@@ -1,67 +1,114 @@
-/* Import Font Modern: Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #4361ee;
-    --secondary-color: #3f37c9;
-    --accent-color: #4895ef;
-    --bg-color: #f8f9fa;
-    --text-dark: #2b2d42;
+    --primary-color: #0d47a1; /* Biru mirip tapi lebih deep */
+    --bg-light: #f3f4f6;
+    --sidebar-width-open: 260px;
+    --sidebar-width-closed: 70px;
+    --header-height: 60px;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-dark);
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    overflow-x: hidden;
 }
 
-/* Custom Card Styling */
-.card-modern {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-    background: white;
+/* --- Layout Utilitas --- */
+.main-content {
+    transition: margin-left 0.3s ease;
+    padding-top: var(--header-height);
 }
 
-.card-modern:hover {
-    transform: translateY(-5px);
+.main-content.expanded {
+    margin-left: var(--sidebar-width-open);
 }
 
-/* Custom Table Styling */
-.table-modern thead th {
-    background-color: #f1f3f5;
-    color: #6c757d;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    border: none;
-    padding: 15px;
+.main-content.collapsed {
+    margin-left: var(--sidebar-width-closed);
 }
 
-.table-modern tbody td {
-    padding: 15px;
-    vertical-align: middle;
-    border-bottom: 1px solid #f1f3f5;
+/* --- Sidebar Styling --- */
+.sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    transition: width 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.table-modern tbody tr:hover {
-    background-color: #f8f9fa;
+.sidebar-open { width: var(--sidebar-width-open); }
+.sidebar-closed { width: var(--sidebar-width-closed); }
+
+.nav-link-custom {
+    color: #4b5563;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    white-space: nowrap; /* Agar teks tidak turun saat ditutup */
+    transition: all 0.2s;
 }
 
-/* Login Page Styling */
-.login-bg {
-    background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
-}
-
-.form-floating > .form-control:focus ~ label,
-.form-floating > .form-control:not(:placeholder-shown) ~ label {
+.nav-link-custom:hover, .nav-link-custom.active {
+    background-color: #eff6ff;
     color: var(--primary-color);
-    transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+    border-left-color: var(--primary-color);
 }
 
-.form-control:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+.nav-link-custom i {
+    font-size: 1.2rem;
+    min-width: 30px; /* Jarak tetap untuk icon */
 }
+
+/* --- Header Styling --- */
+.header-fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: var(--header-height);
+    background-color: var(--primary-color);
+    color: white;
+    z-index: 999;
+    transition: left 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-expanded { left: var(--sidebar-width-open); }
+.header-collapsed { left: var(--sidebar-width-closed); }
+
+/* --- Poster Card (Announcement) --- */
+.announcement-card {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Calendar Widget --- */
+.calendar-wrapper {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.calendar-day {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.calendar-day:hover { background-color: #f3f4f6; }
+.calendar-day.today { background-color: var(--primary-color); color: white; }
