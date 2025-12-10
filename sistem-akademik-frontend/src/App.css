@@ -1,114 +1,230 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* =========================================
+   1. GLOBAL & FONT SETUP
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
 
 :root {
-    --primary-color: #0d47a1; /* Biru mirip tapi lebih deep */
-    --bg-light: #f3f4f6;
-    --sidebar-width-open: 260px;
-    --sidebar-width-closed: 70px;
-    --header-height: 60px;
+    --bg-surface: #f0f4f9;
+    --primary-blue: #0b57d0;
+    --text-primary: #1f1f1f;
+    --text-secondary: #444746;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-light);
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    margin: 0;
     overflow-x: hidden;
 }
 
-/* --- Layout Utilitas --- */
-.main-content {
-    transition: margin-left 0.3s ease;
-    padding-top: var(--header-height);
-}
-
-.main-content.expanded {
-    margin-left: var(--sidebar-width-open);
-}
-
-.main-content.collapsed {
-    margin-left: var(--sidebar-width-closed);
-}
-
-/* --- Sidebar Styling --- */
+/* =========================================
+   2. SIDEBAR STYLE (FLEXBOX UPDATE)
+   ========================================= */
 .sidebar-wrapper {
+    background-color: #f8fafd !important;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
-    background-color: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    transition: width 0.3s ease;
+    padding: 16px;
     z-index: 1000;
-    overflow-y: auto;
+    transition: width 0.3s cubic-bezier(0.2, 0.0, 0, 1.0);
     overflow-x: hidden;
+
+    /* PENTING: Flexbox agar tombol logout bisa di bawah */
+    display: flex;
+    flex-direction: column;
 }
 
-.sidebar-open { width: var(--sidebar-width-open); }
-.sidebar-closed { width: var(--sidebar-width-closed); }
+.sidebar-open { width: 280px; }
+.sidebar-closed { width: 80px; }
 
-.nav-link-custom {
-    color: #4b5563;
-    padding: 12px 20px;
+/* Tombol Menu Pill Shape */
+.nav-link-google {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 24px !important;
+    height: 50px !important;
+    border-radius: 50px !important;
+    color: #444746 !important;
+    text-decoration: none !important;
+    margin-bottom: 8px !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    cursor: pointer; /* Tambahan kursor */
+}
+
+.nav-link-google:hover {
+    background-color: #e8eaed !important;
+    color: #1f1f1f !important;
+}
+
+.nav-link-google.active {
+    background-color: #c2e7ff !important;
+    color: #001d35 !important;
+    font-weight: 700 !important;
+}
+
+.nav-link-google i {
+    font-size: 1.2rem !important;
+    margin-right: 16px !important;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* Tombol Buat Baru */
+.btn-create-new {
+    background-color: #ffffff !important;
+    color: #0b57d0 !important;
+    border-radius: 16px !important;
+    padding: 16px !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    border: none !important;
+    font-weight: 600 !important;
+    margin-bottom: 24px;
+    white-space: nowrap;
+}
+
+/* Style Khusus Tombol Logout (Merah) */
+.btn-logout-google {
+    margin-top: auto; /* Dorong ke bawah */
+    color: #d93025 !important;
+}
+
+.btn-logout-google:hover {
+    background-color: #fce8e6 !important;
+    color: #c5221f !important;
+}
+
+/* =========================================
+   3. LOGIN PAGE STYLE
+   ========================================= */
+.login-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+}
+
+.login-left-side {
+    flex: 1;
+    background: linear-gradient(135deg, #0b57d0 0%, #4285f4 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-left-side::before {
+    content: ''; position: absolute; top: -10%; right: -10%;
+    width: 400px; height: 400px;
+    background: rgba(255, 255, 255, 0.1); border-radius: 50%;
+}
+.login-left-side::after {
+    content: ''; position: absolute; bottom: -10%; left: -10%;
+    width: 300px; height: 300px;
+    background: rgba(255, 255, 255, 0.05); border-radius: 50%;
+}
+
+.login-right-side {
+    width: 100%;
+    max-width: 550px;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
-    text-decoration: none;
-    border-left: 4px solid transparent;
-    white-space: nowrap; /* Agar teks tidak turun saat ditutup */
-    transition: all 0.2s;
+    justify-content: center;
+    padding: 40px;
 }
 
-.nav-link-custom:hover, .nav-link-custom.active {
-    background-color: #eff6ff;
-    color: var(--primary-color);
-    border-left-color: var(--primary-color);
+.login-form-wrapper {
+    width: 100%;
+    max-width: 380px;
 }
 
-.nav-link-custom i {
-    font-size: 1.2rem;
-    min-width: 30px; /* Jarak tetap untuk icon */
-}
-
-/* --- Header Styling --- */
-.header-fixed {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: var(--header-height);
-    background-color: var(--primary-color);
-    color: white;
-    z-index: 999;
-    transition: left 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.header-expanded { left: var(--sidebar-width-open); }
-.header-collapsed { left: var(--sidebar-width-closed); }
-
-/* --- Poster Card (Announcement) --- */
-.announcement-card {
-    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-    color: white;
+.input-group-modern {
+    background-color: #f0f4f9;
     border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+.input-group-modern:focus-within {
+    background-color: #ffffff;
+    border-color: #0b57d0;
+    box-shadow: 0 0 0 4px rgba(11, 87, 208, 0.1);
+}
+.input-modern {
+    background: transparent;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
 }
 
-/* --- Calendar Widget --- */
-.calendar-wrapper {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.btn-login-modern {
+    background-color: #0b57d0;
+    color: white;
+    height: 50px;
+    border-radius: 25px;
+    font-weight: 600;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(11, 87, 208, 0.2);
+}
+.btn-login-modern:hover {
+    background-color: #0842a0;
+    transform: translateY(-2px);
 }
 
-.calendar-day {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 0.85rem;
+@media (max-width: 900px) {
+    .login-left-side { display: none; }
+    .login-right-side { max-width: 100%; background-color: #f0f4f9; }
+    .login-form-wrapper { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
 }
 
-.calendar-day:hover { background-color: #f3f4f6; }
-.calendar-day.today { background-color: var(--primary-color); color: white; }
+/* =========================================
+   4. DASHBOARD GENERAL STYLES
+   ========================================= */
+.google-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 24px;
+    border: none;
+    transition: box-shadow 0.2s, transform 0.2s;
+    height: 100%;
+}
+.google-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transform: translateY(-2px);
+}
+
+.google-search {
+    background-color: #e9eef6;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 600px;
+    font-size: 1rem;
+}
+.google-search:focus {
+    background-color: white;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    outline: none;
+}

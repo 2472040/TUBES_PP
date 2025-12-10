@@ -2,33 +2,24 @@ import React from 'react';
 
 const Header = ({ toggleSidebar, isOpen }) => {
     return (
-        <div className={`header-fixed d-flex align-items-center justify-content-between px-4 ${isOpen ? 'header-expanded' : 'header-collapsed'}`}>
+        <div className="top-bar d-flex justify-content-between w-100 mb-2">
 
-            <div className="d-flex align-items-center">
-                {/* Tombol Toggle Sidebar */}
-                <button onClick={toggleSidebar} className="btn text-white me-3 border-0 p-0">
-                    <i className="bi bi-list fs-3"></i>
+            <div className="d-flex align-items-center gap-3" style={{flex: 1}}>
+                <button onClick={toggleSidebar} className="btn btn-link text-dark p-0 border-0">
+                    <i className="bi bi-list fs-4"></i>
                 </button>
 
-                {/* Dropdown Prodi (Mirip Screenshot) */}
-                <div className="d-none d-md-block">
-                    <select className="form-select form-select-sm bg-light border-0 text-dark fw-bold" style={{borderRadius: '20px', minWidth: '250px'}}>
-                        <option>2025 - Ganjil (Teknik Informatika)</option>
-                        <option>2024 - Genap (Teknik Informatika)</option>
-                    </select>
-                </div>
+                {/* Search Bar ala Google */}
+                <input type="text" className="google-search" placeholder="Telusuri mata kuliah, jadwal, atau nilai..." />
             </div>
 
-            <div className="d-flex align-items-center gap-3">
-                <div className="position-relative cursor-pointer">
-                    <i className="bi bi-bell fs-5"></i>
-                    <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-                </div>
-                <div className="d-flex align-items-center gap-2 cursor-pointer">
-                    <div className="bg-white text-primary rounded-circle d-flex justify-content-center align-items-center fw-bold" style={{width:'32px', height:'32px'}}>
-                        MA
-                    </div>
-                    <span className="d-none d-sm-block fw-500 small">Maliq Athaya</span>
+            <div className="d-flex align-items-center gap-3 ps-3">
+                <button className="btn btn-light rounded-circle p-2" title="Apps">
+                    <i className="bi bi-grid-3x3-gap-fill fs-5 text-secondary"></i>
+                </button>
+                <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                     style={{width: '32px', height: '32px', fontSize: '0.9rem', cursor: 'pointer'}}>
+                    M
                 </div>
             </div>
         </div>

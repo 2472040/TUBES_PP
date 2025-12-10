@@ -7,85 +7,88 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const { login } = useAuth();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
-        // --- LOGIKA SIMULASI LOGIN (Ganti dengan API nanti) ---
-        let role = 'mahasiswa';
-        let namaUser = 'Maliq Athaya';
-        // Deteksi role berdasarkan email yang diketik
-        if (email.toLowerCase().includes('admin')) {
-            role = 'admin';
-            namaUser = 'Administrator Sistem';
-        } else if (email.toLowerCase().includes('dosen')) {
-            role = 'dosen';
-            namaUser = 'Bpk. Dosen Komputer';
-        }
+        setTimeout(() => {
+            let role = 'mahasiswa';
+            let namaUser = 'Maliq Athaya';
 
-        const userData = { email, name: namaUser, role };
+            if (email.toLowerCase().includes('admin')) {
+                role = 'admin';
+                namaUser = 'Administrator';
+            } else if (email.toLowerCase().includes('dosen')) {
+                role = 'dosen';
+                namaUser = 'Dr. Budi Santoso';
+            }
 
-        // Simpan data user ke Context Global
-        login(userData);
+            login({ email, name: namaUser, role });
 
-        console.log("Login sukses sebagai:", role);
+            if (role === 'admin') navigate('/admin');
+            else if (role === 'dosen') navigate('/dosen');
+            else navigate('/mahasiswa');
 
-        // Redirect ke dashboard masing-masing
-        if (role === 'admin') navigate('/admin');
-        else if (role === 'dosen') navigate('/dosen');
-        else navigate('/mahasiswa');
+            setIsLoading(false);
+        }, 800);
     };
 
     return (
-        <div className="vh-100 d-flex justify-content-center align-items-center" style={{background: 'linear-gradient(135deg, #0d47a1 0%, #42a5f5 100%)'}}>
-            <div className="card p-4 shadow-lg border-0" style={{ maxWidth: '400px', width: '90%', borderRadius: '15px' }}>
-                <div className="card-body">
-                    <div className="text-center mb-4">
-                        <div className="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style={{width: '60px', height: '60px'}}>
-                            <i className="bi bi-shield-lock-fill fs-3"></i>
-                        </div>
-                        <h4 className="fw-bold text-dark">SIAKAD PRO</h4>
-                        <p className="text-muted small">Silakan login untuk melanjutkan</p>
+        <div className="login-container">
+            {/* KIRI */}
+            <div className="login-left-side">
+                <div className="mb-4">
+                    <div className="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center mb-3" style={{width: '60px', height: '60px'}}>
+                        <i className="bi bi-gemini fs-2"></i>
                     </div>
+                </div>
+                <h1 className="display-4 fw-bold mb-3">SIAKAD Studio</h1>
+                <p className="lead opacity-75">Platform akademik terintegrasi.</p>
+            </div>
+
+            {/* KANAN */}
+            <div className="login-right-side">
+                <div className="login-form-wrapper">
+                    <h3 className="fw-bold mb-2 text-dark">Selamat Datang</h3>
+                    <p className="text-muted mb-4 small">Masuk untuk mengakses dashboard.</p>
 
                     <form onSubmit={handleSubmit}>
-                        <div className="form-floating mb-3">
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="emailInput"
-                                placeholder="name@example.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                            <label htmlFor="emailInput">Email Address</label>
+                        <div className="mb-3">
+                            <label className="small fw-bold text-secondary ms-1">Email</label>
+                            <div className="input-group-modern">
+                                <i className="bi bi-envelope text-secondary mx-2"></i>
+                                <input
+                                    type="email"
+                                    className="input-modern"
+                                    placeholder="email@univ.ac.id"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <div className="form-floating mb-4">
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="passwordInput"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <label htmlFor="passwordInput">Password</label>
+                        <div className="mb-4">
+                            <label className="small fw-bold text-secondary ms-1">Password</label>
+                            <div className="input-group-modern">
+                                <i className="bi bi-lock text-secondary mx-2"></i>
+                                <input
+                                    type="password"
+                                    className="input-modern"
+                                    placeholder="••••••••"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <button type="submit" className="btn btn-primary w-100 py-2 fw-bold rounded-pill shadow-sm">
-                            MASUK DASHBOARD
+                        <button type="submit" className="btn-login-modern" disabled={isLoading}>
+                            {isLoading ? 'Memuat...' : 'Masuk Sekarang'}
                         </button>
                     </form>
-
-                    <div className="mt-4 text-center">
-                        <small className="text-muted d-block mb-1">Coba login dengan:</small>
-                        <span className="badge bg-light text-dark border me-1">admin@univ.ac.id</span>
-                        <span className="badge bg-light text-dark border me-1">dosen@univ.ac.id</span>
-                        <span className="badge bg-light text-dark border">mhs@univ.ac.id</span>
-                    </div>
                 </div>
             </div>
         </div>
