@@ -14,7 +14,6 @@ const Login = () => {
         // --- LOGIKA SIMULASI LOGIN (Ganti dengan API nanti) ---
         let role = 'mahasiswa';
         let namaUser = 'Maliq Athaya';
-
         // Deteksi role berdasarkan email yang diketik
         if (email.toLowerCase().includes('admin')) {
             role = 'admin';
